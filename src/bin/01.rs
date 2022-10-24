@@ -11,15 +11,11 @@ pub fn part_one(input: &str) -> u32 {
 }
 
 pub fn part_two(input: &str) -> u32 {
-    input
-        .lines()
-        .map(|s| s.parse::<i32>().unwrap())
-        .collect::<Vec<_>>()
-        .windows(3)
-        .map(|w| w.iter().sum::<i32>())
-        .collect::<Vec<_>>()
-        .windows(2)
-        .filter(|p| p[0] < p[1])
+    let depths = input.lines().map(|s| s.parse::<i32>().unwrap());
+    depths
+        .clone()
+        .zip(depths.skip(3))
+        .filter(|(a, b)| a < b)
         .count()
         .try_into()
         .unwrap()
